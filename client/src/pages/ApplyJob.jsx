@@ -24,8 +24,13 @@ const ApplyJob = () => {
   const [jobData, setJobData] = useState(null);
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
 
-  const { jobs, backendUrl, userData, userApplications, fetchUserApplications } =
-    useContext(AppContext);
+  const {
+    jobs,
+    backendUrl,
+    userData,
+    userApplications,
+    fetchUserApplications,
+  } = useContext(AppContext);
 
   const fetchJob = async () => {
     try {
@@ -73,20 +78,21 @@ const ApplyJob = () => {
   };
 
   const checkAlreadyApplied = () => {
-    const hasApplied = userApplications.some( item => item.jobId._id === jobData._id);
+    const hasApplied = userApplications.some(
+      (item) => item.jobId._id === jobData._id
+    );
     setIsAlreadyApplied(hasApplied);
-
-  }
+  };
 
   useEffect(() => {
     fetchJob();
   }, [id]);
 
   useEffect(() => {
-     if(userApplications.length > 0 && jobData) {
+    if (userApplications.length > 0 && jobData) {
       checkAlreadyApplied();
-     }
-  },[jobData, userApplications, id]);
+    }
+  }, [jobData, userApplications, id]);
 
   return jobData ? (
     <>
@@ -150,7 +156,7 @@ const ApplyJob = () => {
                 onClick={applyHandler}
                 className="bg-blue-600 p-2.5 px-10 text-white rounded mt-10"
               >
-                 {isAlreadyApplied ? "Already Applied" : "Apply Now"}
+                {isAlreadyApplied ? "Already Applied" : "Apply Now"}
               </button>
             </div>
             {/* Right section more jobs */}
@@ -165,7 +171,9 @@ const ApplyJob = () => {
                   )
                   .filter((job) => {
                     //set of applied jobIds
-                    const appliedJobIds = new Set(userApplications.map(app => app.jobId && app.jobId._id));
+                    const appliedJobIds = new Set(
+                      userApplications.map((app) => app.jobId && app.jobId._id)
+                    );
                     // Return true if the user has not applied to this job
                     return !appliedJobIds.has(job._id);
                   })

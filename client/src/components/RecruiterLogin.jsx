@@ -34,41 +34,38 @@ const RecruiterLogin = () => {
           password,
         });
         if (data.success) {
-
           setCompanyData(data.company);
           setCompanyToken(data.token);
           localStorage.setItem("companyToken", data.token);
           setShowRecruiterLogin(false);
           navigate("/dashboard");
-
         } else {
           toast.error(data.message);
         }
       } else {
-
         const formData = new FormData();
         formData.append("name", name);
         formData.append("password", password);
         formData.append("email", email);
         formData.append("image", image);
 
-        const { data } = await axios.post( backendUrl+ '/api/company/register', formData)
+        const { data } = await axios.post(
+          backendUrl + "/api/company/register",
+          formData
+        );
 
         if (data.success) {
-            
           setCompanyData(data.company);
           setCompanyToken(data.token);
           localStorage.setItem("companyToken", data.token);
           setShowRecruiterLogin(false);
           navigate("/dashboard");
-
-        } else{
-            toast.error(data.message);
+        } else {
+          toast.error(data.message);
         }
-       
       }
     } catch (error) {
-        toast.error(error.message)
+      toast.error(error.message);
     }
   };
 

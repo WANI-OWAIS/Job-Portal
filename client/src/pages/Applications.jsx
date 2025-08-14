@@ -17,8 +17,13 @@ const Applications = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
 
-  const { backendUrl, userData, userApplications, fetchUserData, fetchUserApplications } =
-    useContext(AppContext);
+  const {
+    backendUrl,
+    userData,
+    userApplications,
+    fetchUserData,
+    fetchUserApplications,
+  } = useContext(AppContext);
 
   const updateResume = async () => {
     try {
@@ -51,8 +56,7 @@ const Applications = () => {
     if (user) {
       fetchUserApplications();
     }
-
-  },[user])
+  }, [user]);
 
   return (
     <>
@@ -84,9 +88,10 @@ const Applications = () => {
             </>
           ) : (
             <div className="flex gap-2">
-              <a target="_blank" href={userData.resume}
+              <a
+                target="_blank"
+                href={userData.resume}
                 className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg"
-                
               >
                 Resume
               </a>
